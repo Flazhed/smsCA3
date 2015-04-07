@@ -4,7 +4,7 @@
 var db = require('./db');
 
 var mongoose = require('mongoose');
-var users = mongoose.model('users');
+var users = mongoose.model('Users');
 
 users.find(function(err, result){
 

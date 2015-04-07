@@ -47,9 +47,9 @@ var remoteServerSchema = {
     topics: Array
 };
 
-mongoose.model('users', usersSchema);
-mongoose.model('quotes', quotesSchema);
-mongoose.model('servers', remoteServerSchema);
+mongoose.model('Users', usersSchema);
+mongoose.model('Quotes', quotesSchema);
+mongoose.model('Servers', remoteServerSchema);
 
 
 
