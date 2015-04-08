@@ -32,7 +32,14 @@ function _createNewQuote(quote, callback){
 }
 
 
-_createNewQuote({topic: "Sports",
-    author: "Michael Jordan",
-    reference: "http://www.brainyquote.com/quotes/topics/topic_sports.html#RE61vPC0oBgId12o.99",
-    quote: "I've missed more than 9000 shots in my career. I've lost almost 300 games. 26 times, I've been trusted to take the game winning shot and missed. I've failed over and over and over again in my life. And that is why I succeed."})
+//_createNewQuote({topic: "Sports",
+//    author: "Michael Jordan",
+//    reference: "http://www.brainyquote.com/quotes/topics/topic_sports.html#RE61vPC0oBgId12o.99",
+//    quote: "I've missed more than 9000 shots in my career. I've lost almost 300 games. 26 times, I've been trusted to take the game winning shot and missed. I've failed over and over and over again in my life. And that is why I succeed."})
+
+
+module.exports = {
+
+    createQuote: _createNewQuote
+
+};
