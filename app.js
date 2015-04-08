@@ -3,9 +3,12 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var routes = require('./routes/index');
 var partials = require('./routes/partials');
+var quote = require('./routes/quote');
+
 
 
 var app = express();
@@ -22,11 +25,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
+app.use(session({secret:'secret_3162735',saveUninitialized:true, resave: true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/partials', partials);
+app.use('/api', quote);
 
 
 // catch 404 and forward to error handler
