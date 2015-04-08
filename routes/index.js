@@ -4,6 +4,9 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function (req, res) {
   //Will be true when the "login" part has been completed
+
+    req.session.email = 'test@test.dk';
+
   if (typeof req.session != "undefined" && typeof req.session.user != "undefined") {
     var user = req.session.user;
     res.render("main.ejs", {user: user});
