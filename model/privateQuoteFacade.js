@@ -22,7 +22,7 @@ function _createNewQuote(quote, callback){
         if(err){
             callback(err)
         }
-        else{
+        els
             console.log(newQuote)
             callback(null, JSON.stringify(newQuote))
         }
