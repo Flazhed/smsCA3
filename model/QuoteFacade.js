@@ -23,7 +23,7 @@ function _createNewQuote(quote, callback){
             callback(err)
         }
         else{
-            console.log(newQuote)
+            //console.log(newQuote)
             callback(null, JSON.stringify(newQuote))
         }
 
@@ -56,17 +56,17 @@ function _editQuote(quote, callback){
     Quote.update({_id : quote._id}, quote, function(err, numAffected, result){
 
         if(err){
-            console.log(err)
-            //callback(err)
+            //console.log(err)
+            callback(err)
         }
         else {
 
             if(numAffected.ok === numAffected.nModified && numAffected.ok === numAffected.n){
-                console.log(quote, "was updated")
+                //console.log(quote, "was updated")
                 callback(null, true, quote)
             }
             else{
-                console.log(quote, " was not updated" )
+                //console.log(quote, " was not updated" )
                 callback(null, false, quote)
             }
 
@@ -94,6 +94,63 @@ function _getQuoteById(id, callback){
 
 }
 
+function _getAllTopics(callback){
+
+    //Return json with all topics
+    Quote.find().distinct('topic', function(err, result){
+
+        if(err){
+            callback(err)
+        }
+        else {
+            //console.log(JSON.stringify(result));
+            callback(null, JSON.stringify(result))
+        }
+    })
+
+}
+
+
+function _getQuoteByTopic(topicInput, callback){
+
+    //Return json list with all quotes matching a topic
+    Quote.find({topic: topicInput}, function(err, result){
+        if(err){
+            callback(err)
+        }
+        else {
+            //console.log(JSON.stringify(result));
+            callback(null, JSON.stringify(result))
+        }
+    })
+
+}
+
+function _getRandomQuoteByTopic(topicInput, callback){
+
+    Quote.count({topic: topicInput}, function(err, c){
+        if(err){
+            callback(err)
+        }
+        else {
+            var random = Math.floor(Math.random() * c);
+            //console.log(c + " random: " + random);
+            Quote.findOne({topic: topicInput}).skip(random).exec(
+                function (err, result) {
+                    if(err){return console.log(err)}
+                    //console.log(JSON.stringify(result))
+                    callback(null, JSON.stringify(result))
+                });
+
+
+        }
+    })
+    //return a single json-quote randomly from the given topic
+
+}
+
+// SIMPLE TEST START --------------------
+
 //_createNewQuote({topic: "Sports",
 //    author: "Michael Jordan",
 //    reference: "http://www.brainyquote.com/quotes/topics/topic_sports.html#RE61vPC0oBgId12o.99",
@@ -107,18 +164,29 @@ function _getQuoteById(id, callback){
 //    _id : "55251fbd6514d9080de5da7f"})
 
 
-_editQuote({topic: "Sports",
-    author: "Jannik",
-    reference: "http://www.brainyquote.com/quotes/topics/topic_sports.html#RE61vPC0oBgId12o.99",
-    quote: "I've missed more than 9000 shots in my career. I've lost almost 300 games. 26 times, I've been trusted to take the game winning shot and missed. I've failed over and over and over again in my life. And that is why I succeed.",
-    _id : "55251fbd6514d9080de5da7f"})
+//_editQuote({topic: "Sports",
+//    author: "Jannik",
+//    reference: "http://www.brainyquote.com/quotes/topics/topic_sports.html#RE61vPC0oBgId12o.99",
+//    quote: "I've missed more than 9000 shots in my career. I've lost almost 300 games. 26 times, I've been trusted to take the game winning shot and missed. I've failed over and over and over again in my life. And that is why I succeed.",
+//    _id : "55251fbd6514d9080de5da7f"})
 
 //_getQuoteById("552511fc515b064405e13e6d")
 //_deleteQuote("552511fc515b064405e13e6d");
 
+
+//_getAllTopics()
+//_getQuoteByTopic("Fiskecitater");
+//_getRandomQuoteByTopic("Sports");
+
+// SIMPLE TEST END --------------------
+
 module.exports = {
 
     createQuote: _createNewQuote,
-    deleteQuote: _deleteQuote
+    deleteQuote: _deleteQuote,
+    editQuote : _editQuote,
+    getAllTopics : _getAllTopics,
+    getQuoteByTopic : _getQuoteByTopic,
+    getRandomQuoteByTopic : _getRandomQuoteByTopic
 
 };

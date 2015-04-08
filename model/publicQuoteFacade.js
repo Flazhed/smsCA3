@@ -47,8 +47,8 @@ function _getRandomQuoteByTopic(topicInput, callback){
             Quote.findOne({topic: topicInput}).skip(random).exec(
                 function (err, result) {
                     if(err){return console.log(err)}
-                    //console.log(JSON.stringify(result))
-                    callback(null, JSON.stringify(result))
+                    console.log(JSON.stringify(result))
+                    //callback(null, JSON.stringify(result))
                 });
 
 
@@ -60,7 +60,7 @@ function _getRandomQuoteByTopic(topicInput, callback){
 
 //_getAllTopics()
 //_getQuoteByTopic("Fiskecitater");
-//_getRandomQuoteByTopic("Sports");
+_getRandomQuoteByTopic("Sports");
 
 module.exports = {
     getAllTopics : _getAllTopics,
