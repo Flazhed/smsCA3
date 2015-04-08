@@ -12,7 +12,7 @@ router.get('/', function (req, res) {
     res.render("main.ejs", {user: user});
   }
   else {
-    res.render("main.ejs", {user: user});
+    res.render("main.ejs");
   }
 });
 

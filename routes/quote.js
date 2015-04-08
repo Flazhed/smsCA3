@@ -5,15 +5,11 @@ var express = require('express');
 var router = express.Router();
 
 var public = require('../model/publicQuoteFacade');
-
-
-//router.get('/123', function(req, res){
-//    req.session.email = 'test@test.dk';
-//    res.end('added');
-//});
+var private = require('../model/privateQuoteFacade');
 
 router.get('/quote', function(req, res){
-    public.allTopics(function(elem){
+    public.getAllTopics(function(err, elem){
+        if(err) return res.send(err)
         res.send(elem)
     })
 });
@@ -24,35 +20,45 @@ router.get('/quote/:topic', function(req, res){
     // what to do here?
     //var topic = param.toLowerCase();
 
-    public.byTopic(param, function(err, elem){
-        if(err) return console.log(err);
+    public.getQuoteByTopic(param, function(err, elem){
+        if(err) return res.send(err);
         res.send(elem);
     });
 });
 
-router.get('/quote/:topic/random', function(req, res){
+router.get('/quote/random/:topic', function(req, res){
+    var topic = req.params.topic;
 
+    public.getRandomQuoteByTopic(topic, function(err, elem){
+        if(err) return res.send(err)
+        res.send(elem);
+    });
 });
 
-router.post('/quote/:topic', function(req, res){
-    //if(typeof (req.session.email) !== 'undefined'){
-        //var quote = JSON.parse(req.body);
-       // console.log('parsed '+quote);
-        var quote = req.body;
-        quote.topic = req.params.topic;
 
-        console.log(quote.body);
-        res.send('ok')
+//private part -----------------------------------------------------
 
-    //}
-    //res.end('login in plez');
+router.post('/quote', function(req, res){
+    var quote = req.body;
+
+    console.log(quote.body);
+
+    private.createQuote(quote, function(err, elem){
+        if(err) return res.send(err)
+        res.send(elem)
+    });
 });
 
-router.delete('/quote/:topic/:id', function(req, res){
+router.delete('/quote/:id', function(req, res){
+    var id = req.params.id;
 
+    private.deleteQuote(id, function(err, elem){
+       if(err) res.send(err);
+        res.send(elem);
+    });
 });
 
-router.put('/quote/:topic/:id', function(req, res){
+router.put('/quote', function(req, res){
 
 });
 
