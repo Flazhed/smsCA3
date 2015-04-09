@@ -1,7 +1,7 @@
 var express = require('express');
 var fs = require('fs');
 
-//var jokes = require("../model/jokes");
+var userFacade = require('../model/usersFacade');
 
 var router = express.Router();
 
@@ -26,5 +26,27 @@ router.get('/pageB', function(req, res) {
 router.get('/login', function(req, res) {
    res.render('login');
   });
+
+router.post("/login", function(req, res){
+
+    var email = req.body.email;
+    var password = req.body.password;
+
+    console.log(email, password);
+
+    userFacade.validateLogin(email, password, function(err, item){
+        if(err) return console.log(err);
+        console.log(item);
+        if(item !== null){
+            return res.redirect('/');
+        }
+        else{
+            console.log("else");
+            //here brah
+            res.redirect('/partials/login');
+        };
+    });
+
+});
 
 module.exports = router;
