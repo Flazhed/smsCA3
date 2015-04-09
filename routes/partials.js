@@ -19,6 +19,14 @@ router.get('/signUp', function(req, res) {
    res.render('signUp');
   });
 
+router.get('/restApi', function(req, res) {
+    res.render('restApi');
+});
+
+router.get('/addQuote', function(req, res) {
+    res.render('addQuote');
+});
+
 router.get('/pageB', function(req, res) {
    res.render('jadeB');
   });
@@ -32,23 +40,26 @@ router.post("/login", function(req, res){
     var email = req.body.email;
     var password = req.body.password;
 
-    console.log(email, password);
-
     userFacade.validateLogin(email, password, function(err, item){
         if(err) return console.log(err);
-        console.log(item);
         if(item !== null){
-            console.log(item.firstName);
-            req.session.firstName = item.firstName;
+            var jsItem = JSON.parse(item);
+            req.session.user = jsItem.firstName;
             return res.redirect('/');
         }
         else{
-            console.log("else");
-            //here brah
+            //do not rendering main.ejs
             res.redirect('/partials/login');
         };
     });
 
+});
+
+router.get('/logout', function(req, res){
+    console.log('si papi');
+    delete req.session.user;
+    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    res.render('main.ejs')
 });
 
 module.exports = router;
