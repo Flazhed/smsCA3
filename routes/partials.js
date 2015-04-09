@@ -38,6 +38,8 @@ router.post("/login", function(req, res){
         if(err) return console.log(err);
         console.log(item);
         if(item !== null){
+            console.log(item.firstName);
+            req.session.firstName = item.firstName;
             return res.redirect('/');
         }
         else{
