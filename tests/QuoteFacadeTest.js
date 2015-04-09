@@ -150,4 +150,65 @@ describe("Testing the QuoteFacade", function(){
 
     })
 
+    it("DeleteQuote - Trying to delete a created quote",function(done){
+
+        var testQuote = {
+            topic: "Fiskecitater",
+            author: "qweqwewqe",
+            reference: "asdasdsad",
+            quote: "asdsad"
+        }
+
+        QFacade.createQuote(testQuote, function(err, res) {
+
+            var resJSON = JSON.parse(res);
+
+            QFacade.deleteQuote(resJSON._id, function(errr, result){
+                var resultJSON = JSON.parse(result);
+
+                //console.log(result);
+
+                resultJSON.topic.should.equal(testQuote.topic);
+                resultJSON.author.should.equal(testQuote.author);
+                resultJSON.reference.should.equal(testQuote.reference);
+                resultJSON.quote.should.equal(testQuote.quote);
+
+                done();
+
+            })
+        })
+    })
+
+
+    it("EditQuote - Trying to edit a quote",function(done){
+
+        var testQuote = {
+            topic: "Fiskecitater",
+            author: "qweqwewqe",
+            reference: "asdasdsad",
+            quote: "asdsad"
+        }
+
+        QFacade.createQuote(testQuote, function(err, res) {
+
+            var resJSON = JSON.parse(res);
+
+            resJSON.topic = "Fiskecitater";
+            resJSON.author = "Koala";
+            resJSON.reference = "Kage";
+            resJSON.quote = "LAKS!";
+
+            QFacade.editQuote(resJSON, function(errr, value, result){
+
+                result.topic.should.equal(resJSON.topic);
+                result.author.should.equal(resJSON.author);
+                result.reference.should.equal(resJSON.reference);
+                result.quote.should.equal(resJSON.quote);
+
+                done();
+
+            })
+        })
+    })
+
 })
