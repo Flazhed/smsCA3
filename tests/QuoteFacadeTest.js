@@ -36,30 +36,32 @@ describe("Testing the QuoteFacade", function(){
 
     })
 
-    it("Testing that we get an empty array when there are no quotes", function(done){
+    it("getAllTopics - getting topics when there are none", function(done){
 
         //Removing all the quotes
         {_quotes.remove({}, function(){})}
 
         QFacade.getAllTopics(function(err, res){
             if(err){throw new Error("DERP")}
+            var resJSON = JSON.parse(res);
 
             //Should return a empty list with no json objects
-            res.toString().should.equal("[]");
+            resJSON.should.empty;
             done();
         });
     })
 
-    it("Testing that we get an empty array when we ask for a non existent topic", function(done){
+    it("getQuoteByTopic - Testing we get the correct error when topic don't exist", function(done){
         QFacade.getQuoteByTopic("ASDQWE",function(err, res){
             if(err){throw new Error("DERP")}
+            var resJSON = JSON.parse(res);
 
-            res.should.equal("[]");
+            resJSON.errCode.should.equal(400);
             done();
         });
     })
 
-    it("Testing we are able to get a quote", function(done){
+    it("getAllTopics - Testing we are able to get a quote", function(done){
         QFacade.getAllTopics(function(err, res){
             if(err){throw new Error("DERP")}
 
@@ -69,7 +71,7 @@ describe("Testing the QuoteFacade", function(){
         });
     })
 
-    it("Testing we are able to get quotes by topic", function(done){
+    it("getQuoteTopic - Testing we are able to get quotes by topic", function(done){
         QFacade.getQuoteByTopic("Koalacitater" ,function(err, res){
             if(err){throw new Error("DERP")}
 
@@ -83,7 +85,7 @@ describe("Testing the QuoteFacade", function(){
         });
     })
 
-    it("Testing we are able to get a random quote", function(done){
+    it("getRandomQuoteByTopic - Testing we are able to get a random quote", function(done){
         QFacade.getRandomQuoteByTopic("Fiskecitater" ,function(err, res){
             if(err){throw new Error("DERP")}
 
@@ -100,17 +102,16 @@ describe("Testing the QuoteFacade", function(){
         });
     })
 
-    it("getRandomQuoteByTopic - Empty array returned if topic dont exist", function(done){
+    it("getRandomQuoteByTopic - Testing we get a JSON error ", function(done){
         QFacade.getRandomQuoteByTopic("ASDASD" ,function(err, res){
             if(err){throw new Error("DERP")}
 
             var resJSON = JSON.parse(res);
 
             //WHY DO WE GET NULL SUDDENLY!?!??!?!
-            res.should.eql([]);
+            resJSON.errCode.should.eql(400);
 
             done();
-
 
         });
     })
@@ -177,6 +178,26 @@ describe("Testing the QuoteFacade", function(){
 
             })
         })
+    })
+
+    it("DeleteQuote - Trying to delete a quote that don't exist",function(done){
+
+        var testQuote = {
+            topic: "Fiskecitater",
+            author: "qweqwewqe",
+            reference: "asdasdsad",
+            quote: "asdsad"
+        }
+
+            var resJSON = JSON.parse(res);
+
+            QFacade.deleteQuote("123564d", function(errr, result){
+
+                resultJSON.errCode.should.equal(400);
+
+                done();
+
+            })
     })
 
 
