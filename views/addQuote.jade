@@ -1,0 +1,19 @@
+extends layout
+block content
+    h3 Add your own quote!
+    hr
+    form(method="post" action="/api/quote")
+        label(for="Topic") topic:
+        input(name="topic" placeholder="Type topic")
+        br
+        label(for="Author") author:
+        input(name="author" placeholder="Type a new quote!")
+        br
+        label(for="Reference") reference:
+        input(name="reference" placeholder="Type a reference")
+        br
+        br
+        label(for="Quote") quote:
+        textarea(name="quote" placeholder="quote..")
+        br
+        input(type='submit')

@@ -45,7 +45,7 @@ router.post('/quote', function(req, res){
 
     quoteFacade.createQuote(quote, function(err, elem){
         if(err) return res.send(err);
-        res.send(elem)
+        res.render("addQuote")
     });
 });
 
