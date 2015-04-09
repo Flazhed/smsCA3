@@ -1,5 +1,5 @@
 /**
- * Created by Slyngel on 4/8/15.
+ * Created by abettbl on 4/9/15.
  */
 
 var should = require('should');
@@ -19,13 +19,7 @@ var quotesArray = require('./quotesList').quoteArray;
 
 var QFacade = require('../model/QuoteFacade');
 
-
-//Missing tests:
-//
-//Test all methods for non existing topics
-//
-
-describe("Testing the publicQuoteFacade", function(){
+describe("Testing the QuoteFacade", function(){
 
     //We remove all quotes from the DB before each test
     beforeEach(function(done){
@@ -119,6 +113,41 @@ describe("Testing the publicQuoteFacade", function(){
 
 
         });
+    })
+
+
+    // WE DONT EVER GET IT FROM THE DB AGAIN TO SEE IF ITS TRUE THIS IS CRIME
+    it("CreateNewQuote - If we are able to add a new quote to the DB", function(done){
+
+        var testQuote = {
+            topic: "Fiskecitater",
+            author: "SorenLEET",
+            reference: "Igaar",
+            quote: "Hval og rejer"
+        }
+
+        QFacade.createQuote(testQuote, function(err, res){
+
+            var resJSON = JSON.parse(res);
+
+            testQuote.topic.should.equal(resJSON.topic);
+            testQuote.author.should.equal(resJSON.author);
+            testQuote.reference.should.equal(resJSON.reference);
+            testQuote.quote.should.equal(resJSON.quote);
+
+            _quotes.findOne({ _id : resJSON._id}, function(err, result){
+
+                result.topic.should.equal(resJSON.topic);
+                result.author.should.equal(resJSON.author);
+                result.reference.should.equal(resJSON.reference);
+                result.quote.should.equal(resJSON.quote);
+
+                done();
+
+            })
+
+        })
+
     })
 
 })
