@@ -24,8 +24,8 @@ function _createNewUser(user, callback){
             callback(err)
         }
         else{
-            console.log(newUser)
-            //callback(null, JSON.stringify(newUser))
+            //console.log(newUser)
+            callback(null, JSON.stringify(newUser))
         }
 
     })

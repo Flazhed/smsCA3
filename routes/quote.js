@@ -4,11 +4,11 @@
 var express = require('express');
 var router = express.Router();
 
-var public = require('../model/publicQuoteFacade');
-var private = require('../model/privateQuoteFacade');
+var quoteFacade = require('../model/QuoteFacade');
+var userFacade = require('../model/usersFacade');
 
 router.get('/quote', function(req, res){
-    public.getAllTopics(function(err, elem){
+    quoteFacade.getAllTopics(function(err, elem){
         if(err) return res.send(err)
         res.send(elem)
     })
@@ -20,7 +20,7 @@ router.get('/quote/:topic', function(req, res){
     // what to do here?
     //var topic = param.toLowerCase();
 
-    public.getQuoteByTopic(param, function(err, elem){
+    quoteFacade.getQuoteByTopic(param, function(err, elem){
         if(err) return res.send(err);
         res.send(elem);
     });
@@ -29,8 +29,8 @@ router.get('/quote/:topic', function(req, res){
 router.get('/quote/random/:topic', function(req, res){
     var topic = req.params.topic;
 
-    public.getRandomQuoteByTopic(topic, function(err, elem){
-        if(err) return res.send(err)
+    quoteFacade.getRandomQuoteByTopic(topic, function(err, elem){
+        if(err) return res.send(err);
         res.send(elem);
     });
 });
@@ -43,8 +43,8 @@ router.post('/quote', function(req, res){
 
     console.log(quote.body);
 
-    private.createQuote(quote, function(err, elem){
-        if(err) return res.send(err)
+    quoteFacade.createQuote(quote, function(err, elem){
+        if(err) return res.send(err);
         res.send(elem)
     });
 });
@@ -52,7 +52,7 @@ router.post('/quote', function(req, res){
 router.delete('/quote/:id', function(req, res){
     var id = req.params.id;
 
-    private.deleteQuote(id, function(err, elem){
+    quoteFacade.deleteQuote(id, function(err, elem){
        if(err) res.send(err);
         res.send(elem);
     });
@@ -60,8 +60,28 @@ router.delete('/quote/:id', function(req, res){
 
 router.put('/quote', function(req, res){
 
+    var quote = req.body;
+
+    quoteFacade.editQuote(quote, function(err, bool, elem){
+        if(err) return res.send(err);
+
+        console.log('The editation was a sucesses: ', bool);
+
+        res.send(elem);
+    });
 });
 
-//missing the post user, to be added later
+router.post('/user', function(req, res){
+
+    var user = req.body;
+
+    console.log(user);
+
+    userFacade.createNewUser(user, function(err, item){
+        if(err) return res.send(err);
+        res.send(item);
+    });
+
+});
 
 module.exports = router;
