@@ -2,11 +2,8 @@
 var debug = require('debug')('templating');
 var app = require('../app');
 
-var port = normalizePort(process.env.OPENSHIFT_NODEJS_PORT || '3000');
-app.set('port', port);
-var ip = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-app.set('ip', ip);
+app.set('port', process.env.PORT || 4000);
 
-
-server.listen(port, ip);
-
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});
