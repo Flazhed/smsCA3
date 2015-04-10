@@ -27,6 +27,10 @@ router.get('/addQuote', function(req, res) {
     res.render('addQuote');
 });
 
+router.get('/viewQuotes', function(req, res) {
+    res.render('viewQuotes');
+});
+
 router.get('/pageB', function(req, res) {
    res.render('jadeB');
   });
@@ -59,7 +63,7 @@ router.get('/logout', function(req, res){
     console.log('si papi');
     delete req.session.user;
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.render('main.ejs')
+    res.redirect(req.get('referer'));
 });
 
 module.exports = router;

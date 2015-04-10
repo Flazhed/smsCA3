@@ -1,0 +1,16 @@
+extends layout
+block content
+    h1= title
+    input.form-control(type="text", placeholder="Text input", id="quoteSearch")
+    br
+    button.btn.btn-primary(type="button") Search
+    br
+    table(class="table table-striped")
+        thead
+            th Author
+                th Quote
+
+    script
+        include javascript/test.js
+
+
