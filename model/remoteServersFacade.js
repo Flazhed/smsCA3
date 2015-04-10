@@ -34,9 +34,12 @@ function _getRandomQuoteFromFriends(topic, callback){
                         })
                     }
 
+
                 })
 
             })
+
+
 
 
         }

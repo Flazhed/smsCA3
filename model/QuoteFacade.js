@@ -119,6 +119,12 @@ function _getQuoteByTopic(topicInput, callback){
             callback(err)
         }
         else {
+
+            if(result.length == 0){
+
+                result = { errCode : 400, description : "No quotes on the given topic"}
+
+            }
             //console.log(JSON.stringify(result));
             callback(null, JSON.stringify(result))
         }
@@ -131,20 +137,8 @@ function _getRandomQuoteByTopic(topicInput, callback){
 
     _getAllTopics(function(err, data){
 
-        var foundBool = false;
+        var jsonString = "";
 
-        data = JSON.parse(data);
-
-        data.forEach(function(elem){
-            if(elem === topicInput) foundBool = true;
-        })
-
-    if(!foundBool){
-        remoteServerSModule.getRandomQuoteFromFriends(topicInput, function(err, friendlyQuote){
-            callback(null, friendlyQuote);
-        })
-    }
-    else {
         Quote.count({topic: topicInput}, function (err, c) {
             if (err) {
                 callback(err)
@@ -157,15 +151,43 @@ function _getRandomQuoteByTopic(topicInput, callback){
                         if (err) {
                             return console.log(err)
                         }
-                        //console.log(JSON.stringify(result))
-                        callback(null, JSON.stringify(result))
+
+                        jsonString = JSON.stringify(result)
+
+
+                        if(jsonString === 'null') {
+
+
+                            var foundBool = false;
+
+                            data = JSON.parse(data);
+
+                            data.forEach(function (elem) {
+
+                                if (elem === topicInput) foundBool = true;
+                            })
+
+                            if (!foundBool) {
+                                console.log("test")
+                                remoteServerSModule.getRandomQuoteFromFriends(topicInput, function (err, friendlyQuote) {
+                                    callback(null, friendlyQuote);
+
+                                })
+
+                            }
+                            else{
+                                callback(null, "test")
+                            }
+                        }
+                        else{
+                            callback(null, jsonString)
+                        }
+                        //return a single json-quote randomly from the given topic
                     });
 
 
             }
         })
-    }
-    //return a single json-quote randomly from the given topic
     })
 }
 
