@@ -45,8 +45,12 @@ router.get('/viewQuotes', function(req, res) {
     res.render('viewQuotes');
 });
 
-router.get('/pageB', function(req, res) {
-   res.render('jadeB');
+router.get('/doc', function(req, res) {
+    res.render('doc');
+});
+
+router.get('/friendQuotes', function(req, res) {
+   res.render('quoteFriend');
   });
 
 router.get('/login', function(req, res) {

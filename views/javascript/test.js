@@ -5,6 +5,8 @@
 
 $(document).ready(function(){
 
+
+
     $("#qPerformSearch").click(function(){
 
         console.log($("#qSearch").val());

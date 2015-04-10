@@ -1,4 +1,67 @@
 extends layout
 block content
-    h3 REST API description should be here!
-    img(src= "http://rs1img.memecdn.com/not-bad-putin-obama-is-too-general_fb_1137257.jpg")
+    h3 Description of REST API
+    table.table.table-striped
+        thead
+            tr
+                th Method
+                th URL
+                th Description
+                th JSON
+            tr
+                td GET
+                td api/quote
+                td Return JSON for all topics available on this server
+                td ["topic-1", "topic-2" …."topic-n"]
+            tr
+                td GET
+                td api/quote/{topic}
+                td Return JSON with all quotes for this topic
+                td [{"_id":"xxx" "topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}, {"_id":"xxx".....}]
+            tr
+                td GET
+                td api/quote/random/{topic}
+                td Return JSON with a random quote
+                td {"_id":"xxx" "topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
+    h3 Error Codes
+    table.table.table-striped
+        thead
+            tr
+                th Error Code
+                th Description
+                th JSON
+            tr
+                td 400
+                td "No quotes on the given topic"
+                td {"errCode" : errCode, "description" : "xxxx"}
+            tr
+                td 404
+                td URL does not exist
+                td {"errCode" : errCode, "description" : "xxxx"}
+            tr
+                td 500
+                td Unexpected exceptions
+                td {"errCode" : errCode, "description" : "xxxx"}
+    h3 Private REST API
+    table.table.table-striped
+        thead
+            tr
+                th Method
+                th URL
+                th Description
+                th JSON
+            tr
+                td POST
+                td api/quote
+                td create new quote from JSON
+                td {"topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
+            tr
+                td DELETE
+                td api/quote/id
+                td Delete quote with given id
+                td {}
+            tr
+                td PUT
+                td api/quote/id
+                td Edit quote with given id and provided JSON
+                td {"topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
