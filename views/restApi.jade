@@ -1,6 +1,8 @@
 extends layout
 block content
-    h3 Description of REST API
+    h2 Description of REST API
+    hr
+    h4 Public
     table.table.table-striped
         thead
             tr
@@ -8,60 +10,60 @@ block content
                 th URL
                 th Description
                 th JSON
-            tr
+        tr
                 td GET
                 td api/quote
                 td Return JSON for all topics available on this server
                 td ["topic-1", "topic-2" …."topic-n"]
-            tr
+        tr
                 td GET
-                td api/quote/{topic}
+                td api/quote/ <strong>{topic}</strong>
                 td Return JSON with all quotes for this topic
                 td [{"_id":"xxx" "topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}, {"_id":"xxx".....}]
-            tr
+        tr
                 td GET
-                td api/quote/random/{topic}
+                td api/quote/random/ <strong>{topic}</strong>
                 td Return JSON with a random quote
                 td {"_id":"xxx" "topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
-    h3 Error Codes
+    h4 Private
+    table.table.table-striped
+        thead
+            tr
+                th Method
+                th URL
+                th Description
+                th JSON
+        tr
+                td POST
+                td api/quote
+                td create new quote from JSON
+                td {"topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
+        tr
+                td DELETE
+                td api/quote/ <strong>{id}</strong>
+                td Delete quote with given id
+                td {}
+        tr
+                td PUT
+                td api/quote/ <strong>{id}</strong>
+                td Edit quote with given id and provided JSON
+                td {"topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
+    h4 Error Codes
     table.table.table-striped
         thead
             tr
                 th Error Code
                 th Description
                 th JSON
-            tr
+        tr
                 td 400
-                td "No quotes on the given topic"
+                td No quotes on the given topic
                 td {"errCode" : errCode, "description" : "xxxx"}
-            tr
+        tr
                 td 404
                 td URL does not exist
                 td {"errCode" : errCode, "description" : "xxxx"}
-            tr
+        tr
                 td 500
                 td Unexpected exceptions
                 td {"errCode" : errCode, "description" : "xxxx"}
-    h3 Private REST API
-    table.table.table-striped
-        thead
-            tr
-                th Method
-                th URL
-                th Description
-                th JSON
-            tr
-                td POST
-                td api/quote
-                td create new quote from JSON
-                td {"topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
-            tr
-                td DELETE
-                td api/quote/id
-                td Delete quote with given id
-                td {}
-            tr
-                td PUT
-                td api/quote/id
-                td Edit quote with given id and provided JSON
-                td {"topic" :"xxx","author": "xxx","reference": "xxx","quote" : "xxx"}
