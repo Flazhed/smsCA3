@@ -41,11 +41,12 @@ router.get('/quote/random/:topic', function(req, res){
 router.post('/quote', function(req, res){
     var quote = req.body;
 
-    console.log(quote.body);
+    console.log(quote);
 
     quoteFacade.createQuote(quote, function(err, elem){
         if(err) return res.send(err);
-        res.render("addQuote")
+        console.log('added', elem);
+        //res.render("addQuote")
     });
 });
 
