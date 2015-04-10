@@ -2,13 +2,27 @@ var express = require('express');
 var fs = require('fs');
 
 var userFacade = require('../model/usersFacade');
+var quoteFacade = require('../model/QuoteFacade');
 
 var router = express.Router();
 
 var path = __dirname.substr(0,__dirname.lastIndexOf("\\"));  //Remove the routes part
 
 router.get('/home', function(req, res) {
-   res.render('home',{quote: {"quote" : "A clear conscience is usually the sign of a bad memory", "author"  :  "Unknown", category: "general"}});
+
+    var _quote = "";
+    var _author = "";
+
+    quoteFacade.getRandomQuoteByTopic('Truth', function(err, elem){
+        item = JSON.parse(elem);
+        _quote = item.quote;
+        _author = item.author;
+
+        console.log(_quote);
+        res.render('home',{quote: {"quote" : _quote, "author"  :  _author, category: "general"}});
+    });
+
+
   });
 
 router.get('/pageA', function(req, res) {

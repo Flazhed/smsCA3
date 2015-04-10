@@ -1,14 +1,12 @@
 extends layout
 block content
     h1= title
-    input.form-control(type="text", placeholder="Text input", id="quoteSearch")
+    input.form-control(type="text", placeholder="Text input", id="qSearch")
     br
-    button.btn.btn-primary(type="button") Search
+    button.btn.btn-primary(type="button", id="qPerformSearch") Search
     br
-    table(class="table table-striped")
-        thead
-            th Author
-                th Quote
+    hr
+    div(id="qView")
 
     script
         include javascript/test.js

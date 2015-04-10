@@ -5,11 +5,25 @@
 
 $(document).ready(function(){
 
-    $("#message").html("message set PETER jquery")
+    $("#qPerformSearch").click(function(){
 
-    $("#1122").click(function(){
-        $("#message").html("Skinke")
-    })
+        console.log($("#qSearch").val());
+
+        $.ajax({
+            type: "GET",
+            url: "api/quote/random/" + $("#qSearch").val(),
+            dataType: "json",
+            success: function (data) {
+                $("#qView").html('<p> <strong>Quote of the day:</strong> ' + data.quote + '</p>')
+                $("#qView").append('<p> <strong>Author:</strong> ' + data.author + '</p>')
+            },
+            failure: function (errMsg) {
+
+            }
+        });
+
+
+    });
 
     $("#submitQuote").click(function(){
 
@@ -20,8 +34,6 @@ $(document).ready(function(){
         $("#subSuccess").show();
         $("#subSuccess").html("<div class='alert alert-success' role='alert' id='succecSubmit'>Your data was saved! </div>")
         $('#subSuccess').delay(2500).fadeOut();
-
-
 
     });
 
