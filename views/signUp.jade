@@ -1,5 +1,25 @@
 extends layout
 block content
-    h1 Sign up
+    h3 Sign up
+    hr
+    form(method="post" action="/partials/addUser" id="userForm")
+        label Firstname:
+        input(id="fname" name="firstName" placeholder="Firstname")
+        br
+        label LastName:
+        input(id="lname" name="lastName" placeholder="Lastname")
+        br
+        label Email:
+        input(id="email" name="email" placeholder="Email")
+        br
+        label Phone:
+        input(id="phone" name="phone" placeholder="Phone")
+        br
+        label Password:
+        input(id="password" name="password" placeholder="Password")
+        br
+        input(type='submit', id="submitUser")
     br
-    p Add the necesasary input fields to let new users sign up to your Great Quotes Site
+    div(id="subSuccess")
+    script
+        include javascript/test.js

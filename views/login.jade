@@ -1,7 +1,17 @@
 extends layout
 block content
-    h1= Login
-    form(method="post" action="/partials/login")
-        input(name="email" placeholder="type email")
-        input(name='password' placeholder="type password" input type="password")
-        input(type='submit')
+    h3 Enter you email and password!
+    p test@test.dk : test will let you in
+    hr
+    form(class="form-horizontal" method="post" action="/partials/login")
+        .form-group
+            label.col-sm-2.control-label(for='inputEmail') Email
+            .col-sm-10
+                input#inputEmail.form-control(name='email', placeholder='Email')
+        .form-group
+            label.col-sm-2.control-label(for='inputPassword') Password
+            .col-sm-10
+                input#inputPassword.form-control(name='password',type="password" placeholder='Password')
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Sign in

@@ -45,8 +45,12 @@ router.get('/viewQuotes', function(req, res) {
     res.render('viewQuotes');
 });
 
-router.get('/pageB', function(req, res) {
-   res.render('jadeB');
+router.get('/doc', function(req, res) {
+    res.render('doc');
+});
+
+router.get('/friendQuotes', function(req, res) {
+   res.render('quoteFriend');
   });
 
 router.get('/login', function(req, res) {
@@ -57,6 +61,7 @@ router.post("/login", function(req, res){
 
     var email = req.body.email;
     var password = req.body.password;
+
 
     userFacade.validateLogin(email, password, function(err, item){
         if(err) return console.log(err);
@@ -78,6 +83,17 @@ router.get('/logout', function(req, res){
     delete req.session.user;
     res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     res.redirect(req.get('referer'));
+});
+
+router.post('/addUser', function(req, res){
+
+    var user = req.body;
+
+    userFacade.createNewUser(user, function(err, elem){
+        //should provide the user with some feedback!...
+        console.log(elem);
+    })
+
 });
 
 module.exports = router;

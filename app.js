@@ -29,6 +29,13 @@ app.use(session({secret:'secret_3162735',saveUninitialized:true, resave: true}))
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use('/', routes);
 app.use('/partials', partials);
 app.use('/api', quote);

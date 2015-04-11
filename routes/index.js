@@ -6,7 +6,7 @@ router.get('/', function (req, res) {
   //Will be true when the "login" part has been completed
 
     //bypass the login part for test purpose
-    req.session.user = 'test';
+   // req.session.user = 'test';
 
 
     console.log("session ", req.session.user);
