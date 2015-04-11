@@ -56,6 +56,7 @@ describe("Testing the QuoteFacade", function(){
             if(err){throw new Error("DERP")}
             var resJSON = JSON.parse(res);
 
+            console.log(res);
             resJSON.errCode.should.equal(400);
             done();
         });
@@ -104,7 +105,7 @@ describe("Testing the QuoteFacade", function(){
 
     it("getRandomQuoteByTopic - Testing we get a JSON error ", function(done){
         QFacade.getRandomQuoteByTopic("ASDASD" ,function(err, res){
-            if(err){throw new Error("DERP")}
+            if(err){throw new Error("DERP");}
 
             var resJSON = JSON.parse(res);
 
@@ -189,11 +190,11 @@ describe("Testing the QuoteFacade", function(){
             quote: "asdsad"
         }
 
-            var resJSON = JSON.parse(res);
-
-            QFacade.deleteQuote("123564d", function(errr, result){
-
-                resultJSON.errCode.should.equal(400);
+            QFacade.deleteQuote("123564d", function(err, result){
+                if(err){console.error(err);}
+                //var resultJSON = JSON.parse(result);
+                console.log(result);
+                result.errCode.should.equal(400);
 
                 done();
 
