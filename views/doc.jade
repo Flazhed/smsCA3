@@ -15,17 +15,51 @@ block content
             #headingTwo.panel-heading(role="tab")
                 h4.panel-title
                     a.collapsed(data-toggle="collapse", data-parent="#accordion", href="#collapseTwo", aria-expanded="false", aria-controls="collapseTwo")
-                        | Collapsible Group Item #2
+                        | Who did what? (Søren)
             #collapseTwo.panel-collapse.collapse(role="tabpanel", aria-labelledby="headingTwo")
                 .panel-body
-                    | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven"t heard of them accusamus labore sustainable VHS.
+                    p Vi valgte at benytte startkoden til projektet for at kunne prøve at nå få snuset til så mange funktionaliteter i vores projekt som muligt. Derefter har vi delt projektet ud således:
+                    p Facadeklasse med database-backend  er lavet af Søren
+                    p No-SQL database schemas er lavet af Søren og Morten
+                    p Serverside templating framework er lavet af Morten
+                    p REST-API er lavet af Stefan og Morten
+                    p Serverside testing med brug af Mocha og Should er lavet af Stefan
+
         .panel.panel-default
             #headingThree.panel-heading(role="tab")
                 h4.panel-title
                     a.collapsed(data-toggle="collapse", data-parent="#accordion", href="#collapseThree", aria-expanded="false", aria-controls="collapseThree")
-                        | Collapsible Group Item #3
+                        | A description of your mongoose schemas (Søren)
             #collapseThree.panel-collapse.collapse(role="tabpanel", aria-labelledby="headingThree")
                 .panel-body
-                    | Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven"t heard of them accusamus labore sustainable VHS.
+                    | Dette er vores første forsøg med en ikke relationel database. Vi har den forståelse af at der ikke er nogle egentlige forbindelser, derfor når fx en server har flere forskellige topics, er forbindelsen ”bare” et array. Hvis dette skulle være lavet i en relationel database ville vi have lave yderligere tabeller til at holde de enkelte topics, og derefter forbindelsen mellem topics og servers. Der er tilfælde nu hvor der kan opstå redundant data hvis flere servers har de samme topics.
+                    p En udvidelse ville være at udarbejde en række schemas der benyttede Unique keys fremfor eksempelvis at bare vælge at username er brugerens email. Vi mente at email i dette tilfælde burde være unik.
+
+        .panel.panel-default
+            #headingFour.panel-heading(role="tab")
+                h4.panel-title
+                    a.collapsed(data-toggle="collapse", data-parent="#accordion", href="#collapseFour", aria-expanded="false", aria-controls="collapseFour")
+                        | Testing (Stefan)
+            #collapseFour.panel-collapse.collapse(role="tabpanel", aria-labelledby="headingFour")
+                .panel-body
+                    | I vores test, tester vi på vores Facade (quoteFacade).
+                    p Det skal siges at alle vores tests ikke passerer, dette skyldes at disse metoder ikke er fuldt implementeret og at vi har beholdt testene for at minde om at de ikke virker korrekt endnu.
+                    p Disse tests er:
+                    p getRandomQuoteByTopic - Testing we get a JSON error
+                    p DeleteQuote - Trying to delete a quote that don't existgetRandomQuoteByTopic:
+                    p Grunden til at denne test den fejler er fordi, vi gennem de andre API servere ikke får en JSON error, med en ErrCode og Description. Derfor når man søger efter et topic som ikke findes, vil vores egen server sende en request ud til
+                    p de andre servere. Og hvis disse servere ikke sender en JSON fejl retur vil vi ikke få denne fejl i testen. Testen er bibeholdt selvom den fejler, da det er meningen at vi skal få denne. Samtidig skal det også siges at vi ikke har
+                    p lavet det kode som skulle håendtere hvis denne fejl sker.
+                    p deleteQuote:
+                    p Denne metode er ikke blevet implementeret helt endnu og er grunden til den fejler. Men testen er stadig korrekt da den skulle give en JSON error.
+                    p I vores tests tester vi facaden kun for 2 tilfælde, vi tester på om metoden giver det korrekte JSON og om facaden håendterer at man efterspørger noget som ikke findes.
+        .panel.panel-default
+            #headingFive.panel-heading(role="tab")
+                h4.panel-title
+                    a.collapsed(data-toggle="collapse", data-parent="#accordion", href="#collapseFive", aria-expanded="false", aria-controls="collapseFive")
+                        | GITHub sourcecode
+            #collapseFive.panel-collapse.collapse(role="tabpanel", aria-labelledby="headingFive")
+                .panel-body
+                    a(href='https://github.com/Flazhed/smsCA3') Github
 
 
