@@ -81,8 +81,7 @@ router.post("/login", function(req, res){
 router.get('/logout', function(req, res){
     console.log('si papi');
     delete req.session.user;
-    res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-    res.redirect(req.get('referer'));
+    res.sendfile('../views/main.ejs');
 });
 
 router.post('/addUser', function(req, res){
